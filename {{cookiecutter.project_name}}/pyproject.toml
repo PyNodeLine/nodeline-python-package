@@ -2,11 +2,6 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-
-[tool.nitpick]
-style = "https://raw.githubusercontent.com/wemake-services/wemake-python-styleguide/master/styles/nitpick-style-wemake.toml"
-
-
 [tool.poetry]
 name = "{{ cookiecutter.project_name }}"
 description = "{{ cookiecutter.project_description }}"
@@ -25,7 +20,7 @@ keywords = []
 style = "https://raw.githubusercontent.com/PyNodeLine/nodeline-python-package/main/styles/nitpick-style-nodeline.toml"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=2.7,>=3.8,<3.10"
 
 
 [tool.poetry.dev-dependencies]
@@ -45,6 +40,4 @@ autoflake = "^1.4"
 black = "^22.3.0"
 isort = "^5.10.1"
 doit = "^0.36.0"
-nitpick = "^0.32"
-
-
+nitpick = "^0.29"
