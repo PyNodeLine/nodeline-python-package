@@ -1,0 +1,31 @@
+[tool.flakehell]
+baseline = ".flakehell_baseline"
+doctests = true
+enable_extensions = "G"
+exclude = [ ".git", ".tox", "__pycache__", "docs/conf.py", "docs/rst", "build", "dist", "venv", ".pybuilder", ".build", "_modules",]
+format = "colored"
+show_source = true
+statistics = false
+accept_encodings = "utf-8"
+max_complexity = 6
+max_line_length = 88
+
+[tool.flakehell.plugins]
+"flake8-*" = [ "+*",]
+flake8-bandit = [ "+*", "-S101", "-S404", "-S602", "-S603", "-S604", "-S605", "-S606", "-S607",]
+flake8-broken-line = [ "-*",]
+flake8-bugbear = [ "+*", "+B950",]
+flake8-commas = [ "-*",]
+flake8-quotes = [ "-*",]
+flake8-darglint = [ "+*", "-DAR103", "-DAR203", "-DAR101",]
+flake8-docstrings = [ "+*",]
+flake8-rst-docstrings = [ "+*", "-RST201", "-RST203", "-RST301", "-RST304",]
+mccabe = [ "+*",]
+pep8-naming = [ "+*",]
+pycodestyle = [ "+*", "-E203", "-E501", "-E722", "-W503",]
+pyflakes = [ "+*",]
+wemake-python-styleguide = [ "+*", "-WPS323", "-WPS412", "-WPS422", "-WPS433", "-WPS453", "-WPS600", "-WPS608", "-WPS226",]
+
+[tool.flakehell.exceptions."**/*test_*.py"]
+flake8-darglint = [ "-DAR101",]
+wemake-python-styleguide = [ "-WPS114", "-WPS118", "-WPS442",]
