@@ -1,0 +1,162 @@
+site_name: {{ cookiecutter.project_name }}
+site_author: {{ cookiecutter.organization }}
+site_description: >-
+  {{ cookiecutter.project_description }}
+
+docs_dir: docs
+
+repo_url: "https://github.com/{{ cookiecutter.organization }}/{{ cookiecutter.project_name }}"
+repo_name: {{ cookiecutter.organization }}/{{ cookiecutter.project_name }}
+
+copyright: Copyright &copy; 2022 - 2023 TimmyLiang
+
+nav:
+  - Home:
+    - Overview: index.md
+    - Changelog: changelog.md
+  - Code Reference:
+    - API: reference/
+  - Issue Tracker: 'https://github.com/{{ cookiecutter.organization }}/{{ cookiecutter.project_name }}/issues'
+
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/git-alt
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+  features:
+    - content.code.annotate
+    - navigation.expand
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    - announce.dismiss
+
+extra:
+  version:
+    default: stable
+    provider: mike
+  social:
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/{{ cookiecutter.project_name }}/
+    - icon: fontawesome/brands/python
+      link: mailto:820472580@qq.com
+
+plugins:
+  - search:
+      separator: '[\\s\\u200b\\-]'
+  - awesome-pages
+  - i18n:
+      default_language: !ENV [DEFAULT_LANGUAGE, "en"]
+      default_language_only: !ENV [DEFAULT_LANGUAGE_ONLY, false]
+      docs_structure: suffix
+      languages:
+        en:
+          name: English
+          build: true
+        zh:
+          name: 中文
+          build: true
+  # - gen-files:
+  #     scripts:
+  #       - docs/gen_api_nav.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+          rendering:
+            show_root_heading: true
+            show_source: false
+            docstring_section_style: list
+            members_order: alphabetical
+            show_category_heading: no
+            merge_init_into_class: yes
+            how_submodules: no
+          selection:
+            docstring_style: google
+            docstring_options:
+              ignore_init_summary: yes
+  - tags
+  - include-markdown
+  - same-dir
+  - autorefs
+  - autolinks
+  - git-revision-date-localized:
+        type: timeago
+        fallback_to_build_date: true
+        enable_creation_date: true
+        enabled: true
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+          remove_comments: true
+  - mike:
+      # these fields are all optional; the defaults are as below...
+      version_selector: true   # set to false to leave out the version selector
+      css_dir: css             # the directory to put the version selector's CSS
+      javascript_dir: js       # the directory to put the version selector's JS
+      canonical_version: null  # the version for <link rel="canonical">; `null`
+                               # uses the version specified via `mike deploy`
+
+markdown_extensions:
+  - admonition
+  - def_list
+  - footnotes
+  - meta
+  - callouts
+  - toc:
+      permalink: true
+  - pymdownx.extra
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.snippets
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - attr_list
+  - md_in_html
+  - mkdocs-click
