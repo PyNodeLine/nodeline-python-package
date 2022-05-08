@@ -1,0 +1,15 @@
+# `nitpick` specific configuration.
+# `nitpick` ensures that you have the same configuration
+# in your own project.
+
+# Make sure to install it with:
+# `pip install nitpick`
+
+["pyproject.toml".tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+version = "0.1.0"
+update_changelog_on_bump = true
+version_files = [
+  "pyproject.toml:version",
+]

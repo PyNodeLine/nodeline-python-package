@@ -1,0 +1,11 @@
+# `nitpick` specific configuration.
+# `nitpick` ensures that you have the same configuration
+# in your own project.
+
+# Make sure to install it with:
+# `pip install nitpick`
+
+["pyproject.toml".tool.black]
+include = '/.pyi?$'
+line-length = 88
+target_version = ['py37']
