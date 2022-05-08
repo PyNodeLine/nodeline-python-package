@@ -39,7 +39,7 @@ MarkupSafe = "2.0"
 
 
 [tool.nitpick]
-style = "styles/nitpick-style-nodeline.toml"
+style = "https://raw.githubusercontent.com/PyNodeLine/nodeline-python-package/main/styles/nitpick-style-nodeline.toml"
 
 
 [tool.black]
