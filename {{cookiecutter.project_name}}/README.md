@@ -35,5 +35,3 @@ print(some_function(3, 4))
 ## License
 
 [{{ cookiecutter.license }}](https://github.com/{{ cookiecutter.organization }}/{{ cookiecutter.project_name }}/blob/master/LICENSE)
-
-
