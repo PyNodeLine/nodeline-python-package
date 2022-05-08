@@ -19,6 +19,26 @@ reference from https://github.com/wemake-services/wemake-python-package
 - [`pytest`](https://github.com/pytest-dev/pytest) for testing
 - `flake8` and [`wemake-python-styleguide`](https://github.com/wemake-services/wemake-python-styleguide) for linting
 - `Github Actions` as the default CI
-- [`sphinx`](http://www.sphinx-doc.org/en/master/) and [`readthedocs.org`](https://readthedocs.org/) for documentation
+- [`mkdocs`](https://www.mkdocs.org/)
 - Easy update process, so your template will always be up-to-date
 
+
+## Installation
+
+Firstly, you will need to install dependencies:
+
+```bash
+pip install cookiecutter jinja2-git lice
+```
+
+Then, create a project itself:
+
+```bash
+cookiecutter gh:PyNodeLine/nodeline-python-package
+```
+
+In order for the github actions to work smoothly (ie badge), you must, during the setup, use your github username in the `organization` field.
+```bash
+project_name [my-awesome-project]: foo-project
+organization [wemake.services]: <github_username>
+```
