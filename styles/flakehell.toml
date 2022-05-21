@@ -33,6 +33,8 @@ exclude = [
   ".pybuilder",
   ".build", # for git submodules.
   "_modules",
+  "dodo.py",
+  "*.md",
 ]
 format = "colored"
 show_source = true
