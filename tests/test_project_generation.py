@@ -35,7 +35,7 @@ def assert_variables_replaced(paths):
         if is_binary(path):
             continue
 
-        with open(path, "r") as template_file:
+        with open(path, "r", encoding="utf8") as template_file:
             file_contents = template_file.read()
 
         match = RE_OBJ.search(file_contents)
