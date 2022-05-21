@@ -2,7 +2,7 @@
 baseline = ".flakehell_baseline"
 doctests = true
 enable_extensions = "G"
-exclude = [ ".git", ".tox", "__pycache__", "docs/conf.py", "docs/rst", "build", "dist", "venv", ".pybuilder", ".build", "_modules",]
+exclude = [ ".git", ".tox", "__pycache__", "docs/conf.py", "docs/rst", "build", "dist", "venv", ".pybuilder", ".build", "_modules", "dodo.py", "*.md",]
 format = "colored"
 show_source = true
 statistics = false
