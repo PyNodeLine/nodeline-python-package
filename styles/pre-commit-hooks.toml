@@ -1,0 +1,126 @@
+[nitpick.meta]
+name = "pre-commit hooks for Python projects"
+url = "https://pre-commit.com/hooks"
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v4.2.0"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-added-large-files"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-ast"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-builtin-literals"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-case-conflict"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-docstring-first"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-json"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "pretty-format-json"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-merge-conflict"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-symlinks"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-toml"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-vcs-permalinks"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-xml"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "check-yaml"
+args= ["--unsafe"]
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "debug-statements"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "destroyed-symlinks"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "end-of-file-fixer"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "file-contents-sorter"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "fix-byte-order-marker"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "forbid-new-submodules"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "mixed-line-ending"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "name-tests-test"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "sort-simple-yaml"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "trailing-whitespace"
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/pre-commit/pygrep-hooks"
+rev = "v1.9.0"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "python-check-blanket-noqa"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "python-check-mock-methods"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "python-no-eval"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "python-no-log-warn"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "rst-backticks"
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/asottile/add-trailing-comma"
+rev = "v2.2.3"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "add-trailing-comma"
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/andreoliwa/nitpick"
+rev = "v0.29.0"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "nitpick"
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/andreoliwa/nitpick"
+rev = "v0.29.0"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "nitpick"
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/myint/autoflake"
+rev = "v1.4"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "autoflake"
+args= [ "--remove-all-unused-imports", "--remove-unused-variables", "--in-place", "--recursive" ]
+

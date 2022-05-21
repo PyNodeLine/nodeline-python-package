@@ -13,4 +13,7 @@ include = [
   "flakehell.toml",
   "mypy.toml",
   "poetry.toml",
+  "tox.toml",
+  "pre-commit-hooks.toml",
+  "pre-commit-tox.toml",
 ]

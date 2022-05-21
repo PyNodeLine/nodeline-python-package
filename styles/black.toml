@@ -9,3 +9,19 @@
 include = '/.pyi?$'
 line-length = 88
 target_version = ['py37']
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/psf/black"
+rev = "22.3.0"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "black"
+args = ["--safe", "--quiet"]
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/asottile/blacken-docs"
+rev = "v1.12.1"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "blacken-docs"
+additional_dependencies = ["black==22.1.0"]
