@@ -35,3 +35,11 @@ import_heading_stdlib = "Import built-in modules"
 import_heading_thirdparty = "Import third-party modules"
 # All project unrelated unknown imports belong to third-party.
 default_section = "THIRDPARTY"
+
+
+[[".pre-commit-config.yaml".repos]]
+repo = "https://github.com/PyCQA/isort"
+rev = "5.10.1"
+
+[[".pre-commit-config.yaml".repos.hooks]]
+id = "isort"
