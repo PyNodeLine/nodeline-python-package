@@ -8,7 +8,7 @@ description = "{{ cookiecutter.project_description }}"
 version = "0.1.0"
 license = "{{ cookiecutter.license|upper }}"
 
-authors = []
+authors = ["{{ cookiecutter.organization }}"]
 
 readme = "README.md"
 
