@@ -1,9 +1,4 @@
-"""PyDoit script.
-
-configure from pyproject.toml.
-[tool.doit]
-dodoFile = "scripts/dodo.py"
-"""
+"""dodo file."""
 
 # Import future modules
 from __future__ import absolute_import
@@ -13,6 +8,7 @@ from __future__ import print_function
 # Import built-in modules
 import glob
 import os
+import posixpath
 from shutil import rmtree
 import signal
 
@@ -20,11 +16,19 @@ import signal
 from doit.action import CmdAction
 import toml
 
-
-DIR = os.path.dirname(__file__)
-
 # NOTES(timmyliang): for ctrl+C quit
 signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+DOIT_CONFIG = {
+    # NOTES(timmyliang): list task with definition order.
+    "sort": "definition",
+    "verbosity": 2,
+}
+
+DIR = os.path.dirname(__file__)
+PY_FILES = glob.glob(posixpath.join(DIR, "**/*.py"), recursive=True)
+with open(posixpath.join(DIR, "pyproject.toml"), "r") as rf:
+    PYPROJECT = toml.load(rf)
 
 
 def add_short_name(short_name):
@@ -44,99 +48,79 @@ def add_short_name(short_name):
     return decorator
 
 
-@add_short_name("f")
-def task_format():
-    """Run `black` `isort`.
-
-    Returns:
-        dict: doit config.
-    """
+@add_short_name("@f")
+def task_group_format():
+    """[Group] Run `black` `isort`."""
     return {"actions": None, "task_dep": ["black", "isort"]}
+
+
+@add_short_name("@init")
+def task_group_init():
+    """[Group] Run `dot_env` `nitpick`."""
+    return {"actions": None, "task_dep": ["dot_env", "nitpick"]}
 
 
 @add_short_name("pf")
 def task_preflight():
-    """Run pre commit for all files.
-
-    Returns:
-        dict: doit config.
-    """
-    command = ["poetry", "run", "pre-commit", "run", "-a"]
-    return {"actions": [command], "verbosity": 2}
+    """Run pre commit for all files."""
+    command = ["nox", "-s", "preflight"]
+    return {"actions": [command]}
 
 
 @add_short_name("b")
 def task_black():
-    """Run black format all python files.
-
-    Returns:
-        dict: doit config.
-    """
-    PY_FILES = glob.glob(os.path.join(DIR, "**/*.py"), recursive=True)
-    command = ["poetry", "run", "black"] + PY_FILES
-    return {"actions": [command], "verbosity": 2}
+    """Run black format all python files."""
+    command = ["nox", "-s", "black", "--"] + PY_FILES
+    return {"actions": [command]}
 
 
 @add_short_name("i")
 def task_isort():
-    """Run isort format all python files.
-
-    Returns:
-        dict: doit config.
-    """
-    PY_FILES = glob.glob(os.path.join(DIR, "**/*.py"), recursive=True)
-    command = ["poetry", "run", "isort"] + PY_FILES
-    return {"actions": [command], "verbosity": 2}
+    """Run isort format all python files."""
+    command = ["nox", "-s", "isort", "--"] + PY_FILES
+    return {"actions": [command]}
 
 
 @add_short_name("l")
 def task_lint():
-    """Run flakehell lint for all python files.
-
-    Returns:
-        dict: doit config.
-    """
-    command = ["poetry", "run", "flakehell", "lint", "."]
-    return {"actions": [command], "verbosity": 2}
+    """Run flakehell lint for all python files."""
+    env = ["nox", "-s", "flakehell", "--"]
+    command = env + ["flakehell", "lint", "."]
+    return {"actions": [command]}
 
 
-@add_short_name("test")
-def task_pytest():
-    """Run pytest.
-
-    Returns:
-        dict: doit config.
-    """
-    command = ["poetry", "run", "pytest"]
-    return {"actions": [command], "verbosity": 2}
+@add_short_name("bl")
+def task_baseline():
+    """Run flakehell lint for all python files."""
+    env = ["nox", "-s", "flakehell", "--"]
+    command = env + ["flakehell", "baseline", ">", ".flakehell_baseline"]
+    return {"actions": [command]}
 
 
-def gen_api(api):
-    """Generate API docs.
-
-    Args:
-        api (bool): flag to generate docs
-
-    Returns:
-        str: running command
-    """
-    # NOTES(timmyliang): remove reference api
-    rmtree(os.path.join(DIR, "docs", "reference"), ignore_errors=True)
-    script_path = os.path.join(DIR, "docs", "gen_api_nav.py")
-    api_command = " ".join(["poetry", "run", "python", script_path])
-    serve_command = " ".join(["poetry", "run", "mkdocs", "serve"])
-    return "{0} & {1}".format(api_command, serve_command) if api else serve_command
+@add_short_name("np")
+def task_nitpick():
+    """Update config with nitpick."""
+    env = ["nox", "-s", "nitpick", "--"]
+    command = env + ["nitpick", "fix"]
+    return {"actions": [command]}
 
 
 @add_short_name("d")
 def task_docs():
-    """Run mike serve.
+    """Run mike serve."""
 
-    Returns:
-        dict: doit config.
-    """
+    def serve_docs(api):
+        """Generate API docs."""
+        # NOTES(timmyliang): remove reference api
+        rmtree(posixpath.join(DIR, "docs", "reference"), ignore_errors=True)
+        command = ["nox", "-s", "mkdocs", "--"]
+        if api:
+            script_path = posixpath.join(DIR, "docs", "gen_api_nav.py")
+            command += ["python", script_path, "&"]
+        return " ".join(command + ["mkdocs", "serve"])
+
     return {
-        "actions": [CmdAction(gen_api)],
+        "actions": [CmdAction(serve_docs)],
         "params": [
             {
                 "name": "api",
@@ -147,40 +131,89 @@ def task_docs():
                 "help": "generate api docs",
             },
         ],
-        "verbosity": 2,
     }
 
 
 @add_short_name("m")
 def task_mike():
-    """Run mike serve.
-
-    Returns:
-        dict: doit config.
-    """
+    """Run mike serve."""
     # NOTES(timmyliang): for ctrl+C quit
     echo = ["echo", "Serve on http://localhost:8000"]
-    command = ["poetry", "run", "mike", "serve"]
-    return {"actions": [" ".join(echo), command], "verbosity": 2}
+    docs_env = ["nox", "-s", "mkdocs", "--"]
+    command = docs_env + ["mike", "serve"]
+    return {"actions": [" ".join(echo), command]}
 
 
 @add_short_name("dd")
 def task_docs_deploy():
-    """Run mike to deploy docs.
-
-    Returns:
-        dict: doit config.
-    """
-    with open(os.path.join(DIR, "pyproject.toml"), "r") as rf:
-        pyproject = toml.load(rf)
-    command = [
-        "poetry",
-        "run",
+    """Run mike to deploy docs."""
+    docs_env = ["nox", "-s", "mkdocs", "--"]
+    command = docs_env + [
         "mike",
         "deploy",
         "--push",
         "--update-aliases",
-        pyproject["tool"]["poetry"]["version"],
+        PYPROJECT["tool"]["poetry"]["version"],
         "latest",
     ]
-    return {"actions": [command], "verbosity": 2}
+    return {"actions": [command]}
+
+
+@add_short_name("sub")
+def task_add_submodule():
+    """Run mike to deploy docs."""
+
+    def add_submodule():
+        # Import third-party modules
+        import pyperclip
+
+        git_url = pyperclip.paste()
+        if not git_url.startswith("git@"):
+            return "echo invalid clip text"
+
+        base = os.path.basename(git_url)
+        stem = os.path.splitext(base)[0]
+        submodule = posixpath.join("_modules", stem)
+        command = ["git", "submodule", "add", git_url, submodule]
+        return " ".join(command)
+
+    return {"actions": [CmdAction(add_submodule)]}
+
+
+@add_short_name("env")
+def task_dot_env():
+    """Generate dot env file for repo."""
+
+    def create_dot_env():
+        MODULE = posixpath.join(DIR, "_modules")
+        env_path = posixpath.join(DIR, ".env")
+        paths = [
+            os.path.relpath(os.path.dirname(path)).replace("\\", "/")
+            for path in glob.iglob(posixpath.join(MODULE, "**/pyproject.toml"))
+        ]
+
+        with open(env_path, "w") as rf:
+            rf.write("PYTHONPATH={0}\n".format(";".join(paths)))
+
+    return {"actions": [create_dot_env]}
+
+
+@add_short_name("pyc")
+def task_clear_pyc():
+    """Clear pyc cache."""
+
+    def clear_pyc():
+        for pyc_path in glob.iglob(posixpath.join(DIR, "**/*.pyc"), recursive=True):
+            print(pyc_path)
+            os.remove(pyc_path)
+
+    return {"actions": [clear_pyc]}
+
+
+@add_short_name("pt")
+def task_pytest():
+    """Run pytest."""
+    env = ["nox", "-s", "tests", "--"]
+    project_name = PYPROJECT["tool"]["poetry"]["name"].lower().replace("-", "_")
+    command = env + ["pytest", project_name]
+    return {"actions": [command]}
