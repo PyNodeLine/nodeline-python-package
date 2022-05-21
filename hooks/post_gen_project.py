@@ -11,6 +11,7 @@ https://github.com/pydanny/cookiecutter-django
 import os
 import sys
 import textwrap
+import subprocess
 
 # Get the root project directory:
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
@@ -36,6 +37,10 @@ def generate_license():
         print(license_result)  # noqa: WPS421
         sys.exit(1)
 
+
+def post_init_project():
+    """Shows user what to do next after project creation."""
+    # TODO(timmyliang): run nitpick 
 
 def print_futher_instuctions():
     """Shows user what to do next after project creation."""
