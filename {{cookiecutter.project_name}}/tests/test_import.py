@@ -15,9 +15,9 @@ import {{ cookiecutter.project_name.lower().replace('-', '_') }}
 
 def test_imports():
     """Test import modules."""
-    prefix = "{}.".format( {{ cookiecutter.project_name.lower().replace('-', '_') }}.__name__)
+    prefix = "{}.".format({{ cookiecutter.project_name.lower().replace('-', '_') }}.__name__)
     iter_packages = pkgutil.walk_packages(
-         {{ cookiecutter.project_name.lower().replace('-', '_') }}.__path__,  # noqa: WPS609
+        {{ cookiecutter.project_name.lower().replace('-', '_') }}.__path__,  # noqa: WPS609
         prefix,
     )
     for _, name, _ in iter_packages:
