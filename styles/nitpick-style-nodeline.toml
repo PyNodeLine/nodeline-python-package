@@ -13,5 +13,6 @@ include = [
   "flakehell.toml",
   "mypy.toml",
   "poetry.toml",
+  "flake8.toml",
   "pre-commit-hooks.toml",
 ]

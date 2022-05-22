@@ -11,6 +11,8 @@ import os
 import posixpath
 from shutil import rmtree
 import signal
+import subprocess
+from functools import partial
 
 # Import third-party modules
 from doit.action import CmdAction
@@ -102,7 +104,7 @@ def task_nitpick():
     """Update config with nitpick."""
     env = ["nox", "-s", "nitpick", "--"]
     command = env + ["nitpick", "fix"]
-    return {"actions": [command]}
+    return {"actions": [lambda: subprocess.call(command) or None]}
 
 
 @add_short_name("d")
