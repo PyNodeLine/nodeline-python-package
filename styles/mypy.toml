@@ -10,7 +10,7 @@
 
 # This file is included into wemake-preset.
 
-["pyproject.toml".tool.mypy]
+["setup.cfg".mypy]
 allow_redefinition = false
 check_untyped_defs = true
 ignore_errors = false

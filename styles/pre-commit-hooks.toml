@@ -106,16 +106,6 @@ id = "add-trailing-comma"
 repo = "https://github.com/andreoliwa/nitpick"
 rev = "v0.29.0"
 
-[[".pre-commit-config.yaml".repos.hooks]]
-id = "nitpick"
-
-[[".pre-commit-config.yaml".repos]]
-repo = "https://github.com/andreoliwa/nitpick"
-rev = "v0.29.0"
-
-[[".pre-commit-config.yaml".repos.hooks]]
-id = "nitpick"
-
 [[".pre-commit-config.yaml".repos]]
 repo = "https://github.com/myint/autoflake"
 rev = "v1.4"

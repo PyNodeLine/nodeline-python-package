@@ -1,0 +1,34 @@
+# `nitpick` specific configuration.
+# `nitpick` ensures that you have the same configuration
+# in your own project.
+
+# Make sure to install it with:
+# `pip install nitpick`
+
+# See:
+# https://wemake-python-stylegui.de/en/latest/pages/usage/integrations/nitpick
+
+# This file is included into base-preset.
+
+["setup.cfg".flake8]
+# Base flake8 configuration:
+# https://flake8.pycqa.org/en/latest/user/configuration.html
+format = "wemake"
+show-source = true
+statistics = false
+doctests = true
+
+# Plugins:
+max-complexity = 6
+max-line-length = 80
+
+# darglint configuration:
+# https://github.com/terrencepreilly/darglint
+strictness = "long"
+docstring-style = "google"
+
+# Self settings:
+max-imports = 17
+
+# Exclude some pydoctest checks globally:
+ignore = ["D100", "D104", "D401", "W504", "RST303", "RST304", "DAR103", "DAR203"]

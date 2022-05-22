@@ -10,7 +10,7 @@
 
 # This file is included into base-preset.
 
-["pyproject.toml".tool.isort]
+["setup.cfg".isort]
 # These values should be placed inside `setup.cfg` in your repo:
 add_imports = [
   "from __future__ import absolute_import",
