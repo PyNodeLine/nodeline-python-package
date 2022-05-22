@@ -8,16 +8,22 @@ from __future__ import print_function
 # Import built-in modules
 import glob
 import os
+import sys
 import posixpath
 from shutil import rmtree
 import signal
 import subprocess
-from functools import partial
 
 # Import third-party modules
 from doit.action import CmdAction
 import toml
+from dotenv import load_dotenv
 
+load_dotenv()
+for path in os.getenv("PYTHONPATH").split(";"):
+    if path not in sys.path:
+        sys.path.insert(0, path)
+        
 # NOTES(timmyliang): for ctrl+C quit
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
