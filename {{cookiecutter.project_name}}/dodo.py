@@ -8,11 +8,11 @@ from __future__ import print_function
 # Import built-in modules
 import glob
 import os
-import sys
 import posixpath
 from shutil import rmtree
 import signal
 import subprocess
+import sys
 
 # Import third-party modules
 from doit.action import CmdAction
