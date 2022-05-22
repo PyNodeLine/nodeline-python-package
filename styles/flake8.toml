@@ -31,4 +31,4 @@ docstring-style = "google"
 max-imports = 17
 
 # Exclude some pydoctest checks globally:
-ignore = ["D100", "D104", "D401", "W504", "RST303", "RST304", "DAR103", "DAR203"]
+ignore = "D100,D104,D401,W504,RST303,RST304,DAR103,DAR203"
