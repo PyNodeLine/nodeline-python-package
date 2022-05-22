@@ -195,7 +195,7 @@ def task_dot_env():
         ]
 
         with open(env_path, "w") as rf:
-            rf.write("PYTHONPATH={0}\n".format(";".join(paths)))
+            rf.write("PYTHONPATH=.;{0}\n".format(";".join(paths)))
 
     return {"actions": [create_dot_env]}
 
