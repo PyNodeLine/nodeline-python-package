@@ -40,7 +40,9 @@ def generate_license():
 
 def post_init_project():
     """Shows user what to do next after project creation."""
-    # TODO(timmyliang): run nitpick 
+    subprocess.call("python -m pip install poetry",cwd=PROJECT_DIRECTORY)
+    subprocess.call("poetry install",cwd=PROJECT_DIRECTORY)
+    subprocess.call("poetry run doit @init",cwd=PROJECT_DIRECTORY)
 
 def print_futher_instuctions():
     """Shows user what to do next after project creation."""
@@ -54,4 +56,5 @@ def print_futher_instuctions():
 
 
 generate_license()
+post_init_project()
 print_futher_instuctions()
