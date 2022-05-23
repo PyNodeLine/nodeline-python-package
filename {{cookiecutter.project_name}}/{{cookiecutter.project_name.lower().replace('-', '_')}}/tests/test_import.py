@@ -13,6 +13,7 @@ import pkgutil
 # Import local modules
 import {{ cookiecutter.project_name.lower().replace('-', '_') }}
 
+
 def test_imports():
     """Test import modules."""
     prefix = "{}.".format({{ cookiecutter.project_name.lower().replace('-', '_') }}.__name__)
