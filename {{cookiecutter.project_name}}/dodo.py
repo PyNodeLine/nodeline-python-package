@@ -9,16 +9,16 @@ from __future__ import print_function
 import glob
 import os
 import posixpath
+from shutil import rmtree
 import signal
 import subprocess
 import sys
-from shutil import rmtree
-
-import toml
 
 # Import third-party modules
 from doit.action import CmdAction
 from dotenv import load_dotenv
+import toml
+
 
 load_dotenv()
 for path in os.getenv("PYTHONPATH", "").split(";"):
@@ -28,16 +28,19 @@ for path in os.getenv("PYTHONPATH", "").split(";"):
 # NOTES(timmyliang): for ctrl+C quit
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-DOIT_CONFIG = {
+
+DOIT_CONFIG = {  # noqa: WPS407
     # NOTES(timmyliang): list task with definition order.
     "sort": "definition",
     "verbosity": 2,
 }
 
 DIR = os.path.dirname(__file__)
-PY_FILES = glob.glob(posixpath.join(DIR, "**/*.py"), recursive=True)
 with open(posixpath.join(DIR, "pyproject.toml"), "r") as rf:
     PYPROJECT = toml.load(rf)
+
+PROJECT_NAME = PYPROJECT["tool"]["poetry"]["name"].lower().replace("-", "_")
+PY_FILES = glob.glob(posixpath.join(DIR, PROJECT_NAME, "**/*.py"), recursive=True)
 
 
 def add_short_name(short_name):
@@ -223,6 +226,5 @@ def task_clear_pyc():
 def task_pytest():
     """Run pytest."""
     env = ["nox", "-s", "tests", "--"]
-    project_name = PYPROJECT["tool"]["poetry"]["name"].lower().replace("-", "_")
-    command = env + ["pytest", project_name]
+    command = env + ["pytest", PROJECT_NAME]
     return {"actions": [command]}
